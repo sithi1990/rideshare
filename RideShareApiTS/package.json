@@ -1,0 +1,10 @@
+{
+  "name": "ride-share-api-ts",
+  "version": "0.0.0",
+  "description": "RideShareApiTS",
+  "main": "app.js",
+  "author": {
+    "name": "SPPATHIRANA",
+    "email": ""
+  }
+}

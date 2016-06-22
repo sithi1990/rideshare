@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverLocatorFormsPortable.SignUp">
+  <ContentPage.Content>
+
+    <StackLayout VerticalOptions="StartAndExpand">
+
+      <Label Text="First Name" />
+      <Entry Text="{Binding FirstName, Mode=TwoWay}" Placeholder="First Name" />
+
+      <Label Text="Last Name" />
+      <Entry Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last Name" />
+      
+      <Label Text="User Name" />
+      <Entry Text="{Binding UserName, Mode=TwoWay}" Placeholder="User Name" />
+
+      <Label Text="E Mail" />
+      <Entry Text="{Binding Email, Mode=TwoWay}" Placeholder="Email" />
+
+      <Label Text="Password" />
+      <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="true" Placeholder="Password" />
+
+      <Button Text="Sign  Up" Command="{Binding SignUpCommand}" />
+      <Label Text="{Binding ErrorMessage}" />
+
+    </StackLayout>
+
+  </ContentPage.Content>
+</ContentPage>

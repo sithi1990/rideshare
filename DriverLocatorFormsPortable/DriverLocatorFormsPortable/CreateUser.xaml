@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DriverLocatorFormsPortable.CreateUser">
+  <ContentPage.Content>
+      <StackLayout VerticalOptions="StartAndExpand">
+
+      <Label Text="User Name" />
+      <Entry x:Name="UserName" />
+
+      <Label Text="E Mail" />
+      <Entry x:Name="EMail" />
+
+      <Label Text="First Name" />
+      <Entry x:Name="FirstName" />
+
+      <Label Text="Last Name" />
+      <Entry x:Name="LastName" />
+
+      <Label Text="Longitude" />
+      <Entry x:Name="Longitude" Placeholder="Longitude" />
+
+      <Label Text="Latitude" />
+      <Entry x:Name="Latitude" Placeholder="Latitude" />
+
+      <Button Text="Save" Clicked="OnSaveButtonClicked" />
+      <Label x:Name="messageLabel" />
+
+    </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
