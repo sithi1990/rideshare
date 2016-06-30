@@ -26,6 +26,9 @@ namespace DriverLocatorFormsPortable.Droid
 
             // Call takeOff
             UAirship.TakeOff(this, (UAirship airship) => {
+                //airship.PushManager.NamedUser.Id = "user1";
+                airship.PushManager.NamedUser.Id = "user1";
+                airship.PushManager.UpdateRegistration();
                 UAirship.Shared().PushManager.UserNotificationsEnabled = true;
             });
 
