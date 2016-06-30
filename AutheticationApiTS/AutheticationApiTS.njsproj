@@ -69,6 +69,7 @@
     <TypeScriptCompile Include="Scripts\typings\serve-static\serve-static.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\stylus\stylus.d.ts" />
     <Content Include="package.json" />
+    <Content Include="Procfile.txt" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
