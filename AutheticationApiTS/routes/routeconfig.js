@@ -1,7 +1,6 @@
-"use strict";
 var express = require('express');
 var AuthenticationAPI = require('./AuthenticationApiController');
-var UserMongooseDAO = require('../dataaccess/UserDAO');
+var UserMongooseDAO = require('../data_access/UserDAO');
 var RouteConfig = (function () {
     function RouteConfig(app) {
         this.apiRoutes = express.Router();
@@ -15,6 +14,6 @@ var RouteConfig = (function () {
         this.app.use('/authapp', this.apiRoutes);
     };
     return RouteConfig;
-}());
+})();
 module.exports = RouteConfig;
-//# sourceMappingURL=routeconfig.js.map
+//# sourceMappingURL=RouteConfig.js.map

@@ -1,4 +1,3 @@
-"use strict";
 var User = require("../models/User");
 var UserResponse = require("../models/UserResponse");
 var TokenPayload = require("../models/TokenPayload");
@@ -97,6 +96,6 @@ var AuthhenticationAPIController = (function () {
         }
     };
     return AuthhenticationAPIController;
-}());
+})();
 module.exports = AuthhenticationAPIController;
 //# sourceMappingURL=AuthenticationApiController.js.map

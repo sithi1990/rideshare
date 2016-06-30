@@ -1,6 +1,6 @@
 ﻿import express = require('express');
 import AuthenticationAPI = require('./AuthenticationApiController');
-import UserMongooseDAO = require('../dataaccess/UserDAO');
+import UserMongooseDAO = require('../data_access/UserDAO');
 
 class RouteConfig {
 
