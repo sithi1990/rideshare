@@ -1,7 +1,8 @@
+"use strict";
 exports.secret = "vappsecret";
 // Use for debugging
 //export const database = "mongodb://localhost:27017/authapp";
-exports.database = "mongodb://localhost:27017/authapp";
+//export const database = "mongodb://localhost:27017/authapp";
 // Use for deploy
-//export const database = "mongodb://vuser:vuser@jello.modulusmongo.net:27017/ja3qimAr"; 
+exports.database = "mongodb://admin:admin@jello.modulusmongo.net:27017/xyje9Hed";
 //# sourceMappingURL=config.js.map
