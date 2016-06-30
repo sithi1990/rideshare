@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 
 # Main AuthenticationAPI configuration file
+AutheticationApiTS/config.js
