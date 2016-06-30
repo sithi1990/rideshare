@@ -115,14 +115,17 @@ class AuthhenticationAPIController{
                             }
                         };
 
-                      
-                       
+
+
                     }
-                    catch(e){
+                    catch (e) {
                         return res.json({ success: false, message: 'Failed to find user.' });
-                    } 
+                    }
                 }
             });
+        }
+        else {
+            return res.json({ success: false, message: 'No token founded.' });
         }
     }
 
