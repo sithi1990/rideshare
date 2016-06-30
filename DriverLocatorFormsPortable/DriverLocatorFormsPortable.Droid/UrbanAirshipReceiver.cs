@@ -79,12 +79,14 @@ namespace DriverLocatorFormsPortable.Droid
 
             // Return false here to allow Urban Airship to auto launch the launcher
             // activity for foreground notification action buttons
+            OnPushNotificationOpened(this, new OnPushNotificationOpenedEventArgs() { Message = notificationInfo.Message.Alert, NotificationId = notificationInfo.NotificationId, Button = ButtonType.Confirm });
             return false;
         }
 
         protected override void OnNotificationDismissed(Context context, AirshipReceiver.NotificationInfo notificationInfo)
         {
             Log.Info(TAG, "Notification dismissed. Alert: " + notificationInfo.Message.Alert + ". Notification ID: " + notificationInfo.NotificationId);
+            OnPushNotificationDismissed(this, new OnPushNotificationDismissedEventArgs() { Message = notificationInfo.Message.Alert, NotificationId = notificationInfo.NotificationId });
         }
     }
 }

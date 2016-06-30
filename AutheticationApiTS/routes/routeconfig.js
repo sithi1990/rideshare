@@ -1,6 +1,6 @@
 var express = require('express');
 var AuthenticationAPI = require('./AuthenticationApiController');
-var UserMongooseDAO = require('../data_access/UserDAO');
+var UserMongooseDAO = require('../dataaccess/UserDAO');
 var RouteConfig = (function () {
     function RouteConfig(app) {
         this.apiRoutes = express.Router();
