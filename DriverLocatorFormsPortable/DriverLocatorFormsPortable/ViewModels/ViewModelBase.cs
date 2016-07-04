@@ -19,7 +19,19 @@ namespace DriverLocatorFormsPortable.ViewModels
                     new PropertyChangedEventArgs(propertyName));
             }
         }
+        private string errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return errorMessage;
+            }
 
-        public string ErrorMessaage { get; set; }
+            set
+            {
+                errorMessage = value;
+                OnPropertyChanged("ErrorMessage");
+            }
+        }
     }
 }

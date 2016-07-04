@@ -11,11 +11,30 @@ using System.Net.Http.Headers;
 
 namespace Common
 {
+    public class BasicAuthorization
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        private string encodedAuthorizationHedder;
+
+        public string EncodedAuthorizationHedder
+        {
+            get
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(UserName +":"+Password);
+                return "Basic "+ System.Convert.ToBase64String(plainTextBytes);
+            }
+        }
+
+    }
+
     public class HttpRequestHandler
     {
         public string AccessToken { get; set; }
         public string Url { get; set; }
         public string Method { get; set; }
+        public BasicAuthorization BasicAuthorization { get; set; }
 
         public TResult SendRequest<T,TResult>(T t)
         {
@@ -29,7 +48,11 @@ namespace Common
             {
                 request.Headers.Add("x-access-token", AccessToken);
             }
-
+            if(!String.IsNullOrEmpty(BasicAuthorization.UserName))
+            {
+                request.Headers.Add("Authorization", BasicAuthorization.EncodedAuthorizationHedder);
+            }
+            
             if (t != null)
             {
                 request.Content = new StringContent(JsonConvert.SerializeObject(t, Formatting.Indented), Encoding.UTF8, "application/json");

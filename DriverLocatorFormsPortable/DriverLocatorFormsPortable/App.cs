@@ -15,6 +15,11 @@ namespace DriverLocatorFormsPortable
             MainPage = new Login();
         }
 
+        public App(string data)
+        {
+            // The root page of your application
+            MainPage = new Login(data);
+        }
 
         public static bool IsUserLoggedIn
         {

@@ -189,6 +189,10 @@
     <AndroidResource Include="Resources\drawable\menu.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\UrbanAirshipClient\UrbanAirshipClient.csproj">
+      <Project>{5714a7e8-1b89-4ab7-81db-9985b95114f2}</Project>
+      <Name>UrbanAirshipClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DriverLocatorFormsPortable\DriverLocatorFormsPortable.csproj">
       <Name>DriverLocatorFormsPortable</Name>
     </ProjectReference>

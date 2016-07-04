@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <urban-airship-app-key>YourGoogleApiKeyHere</urban-airship-app-key>
+  <urban-airship-app-master-secret>YourGoogleApiKeyHere</urban-airship-app-master-secret>
+</config>

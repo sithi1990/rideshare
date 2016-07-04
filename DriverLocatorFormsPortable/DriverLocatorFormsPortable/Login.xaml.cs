@@ -20,6 +20,15 @@ namespace DriverLocatorFormsPortable
             //Session.AuthenticationService = new AuthenticationService();
         }
 
+        public Login(string data)
+        {
+            InitializeComponent();
+            var loginVm= new LoginViewModel(this);
+            loginVm.ErrorMessage = data;
+            Content.BindingContext = loginVm;
+            //Session.AuthenticationService = new AuthenticationService();
+        }
+
         //void OnLoginButtonClicked(object sender, EventArgs e)
         //{
         //    var user = new User

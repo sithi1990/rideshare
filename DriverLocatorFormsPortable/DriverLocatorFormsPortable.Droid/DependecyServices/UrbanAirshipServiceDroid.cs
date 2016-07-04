@@ -10,8 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+[assembly: Xamarin.Forms.Dependency(typeof(DriverLocatorFormsPortable.Droid.DependecyServices.UrbanAirshipServiceDroid))]
 namespace DriverLocatorFormsPortable.Droid.DependecyServices
 {
+   
     public class UrbanAirshipServiceDroid
     {
     }

@@ -54,7 +54,7 @@ namespace DriverLocatorFormsPortable.ViewModels
 
                 DriverLocator.DriverLocatorService driverLocatorService = new DriverLocator.DriverLocatorService(Session.AuthenticationService);
                 var userCorrdinateResult = driverLocatorService.GetSelectedUserCoordinate();
-
+                Session.CurrentUserName = this.UserName;
                 if (userCorrdinateResult.IsSuccess)
                 {
                     App.CurrentLoggedUser = userCorrdinateResult.UserCoordinate;
@@ -105,18 +105,5 @@ namespace DriverLocatorFormsPortable.ViewModels
             }
         }
 
-        public string ErrorMessage
-        {
-            get
-            {
-                return errorMessage;
-            }
-
-            set
-            {
-                errorMessage = value;
-                OnPropertyChanged("ErrorMessage");
-            }
-        }
     }
 }
