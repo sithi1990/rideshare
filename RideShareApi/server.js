@@ -46,7 +46,7 @@ apiRoutes.use(function(req, res, next) {
 		headers: { "Content-Type": "application/json","x-access-token": token}
 	};
 	 
-	httpClient.get("http://localhost:8078/authapp/userinfo", args, function (userInfo, response) {
+	httpClient.get("http://vauthapp.herokuapp.com/authapp/userinfo", args, function (userInfo, response) {
 		
 	
 			if(userInfo.success)
