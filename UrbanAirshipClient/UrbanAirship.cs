@@ -14,14 +14,14 @@ namespace UrbanAirshipClient
         IOS
     }
 
-    public class UrbanAirship : INotificationClient
+    public class UrbanAirshipApiClient : INotificationClient
     {
         private const string REGISTER_USER_URL = "https://go.urbanairship.com/api/named_users/associate";
-
+        private const string URBAN_AIRSHIP_API_ACCEPT_HEDERS = "application/vnd.urbanairship+json;version=3;";
         public string AppKey { get; set; }
         public string AppMasterSecret { get; set; }
 
-        public UrbanAirship(string appKey,string appMasterSecret)
+        public UrbanAirshipApiClient(string appKey,string appMasterSecret)
         {
             this.AppKey = appKey;
             this.AppMasterSecret = appMasterSecret;
@@ -32,6 +32,7 @@ namespace UrbanAirshipClient
             HttpRequestHandler requestHandler = new HttpRequestHandler();
             requestHandler.BasicAuthorization.UserName = AppKey;
             requestHandler.BasicAuthorization.Password = AppMasterSecret;
+            requestHandler.AcceptHeders = URBAN_AIRSHIP_API_ACCEPT_HEDERS;
             requestHandler.Url = REGISTER_USER_URL;
             requestHandler.Method = "POST";
             return requestHandler.SendRequest<RegisterUserRequest,RegisterUserResponse>(regUserRequest).Success;

@@ -34,16 +34,40 @@ namespace Common
         public string AccessToken { get; set; }
         public string Url { get; set; }
         public string Method { get; set; }
-        public BasicAuthorization BasicAuthorization { get; set; }
+        public string AcceptHeders { get; set; }
+        private BasicAuthorization basicAuthorization = new BasicAuthorization();
+
+        public BasicAuthorization BasicAuthorization
+        {
+            get { return basicAuthorization; }
+            set { basicAuthorization = value; }
+        }
 
         public TResult SendRequest<T,TResult>(T t)
         {
             HttpClient httpClinet = new HttpClient(new NativeMessageHandler());
             var request = new HttpRequestMessage();
-            request.Method = Method == "POST" ? HttpMethod.Post : HttpMethod.Get;
-            httpClinet.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            request.RequestUri = new Uri(Url);
+            request.Method = Method == "POST" ? HttpMethod.Post : HttpMethod.Get;    
+            if (!String.IsNullOrEmpty(AcceptHeders))
+            {
+                //var acceptHeders = AcceptHeders.Split(';');
+                //foreach(var hedder in acceptHeders)
+                //{
+                //    if(!String.IsNullOrEmpty(hedder))
+                //    {
+                //        httpClinet.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(AcceptHeders));
+                //    }  
+                //}
 
+                httpClinet.DefaultRequestHeaders.TryAddWithoutValidation("Accept", AcceptHeders);
+            }
+            else
+            {
+                httpClinet.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+           
+            request.RequestUri = new Uri(Url);
+            //request.Headers.TryAddWithoutValidation("Content-Type", "application/json");
             if (!String.IsNullOrEmpty(AccessToken))
             {
                 request.Headers.Add("x-access-token", AccessToken);
@@ -51,11 +75,15 @@ namespace Common
             if(!String.IsNullOrEmpty(BasicAuthorization.UserName))
             {
                 request.Headers.Add("Authorization", BasicAuthorization.EncodedAuthorizationHedder);
+                
             }
             
             if (t != null)
             {
-                request.Content = new StringContent(JsonConvert.SerializeObject(t, Formatting.Indented), Encoding.UTF8, "application/json");
+                //request.Content = new StringContent(JsonConvert.SerializeObject(t, Formatting.Indented), Encoding.Unicode, "application/json");
+                request.Content = new StringContent(JsonConvert.SerializeObject(t, Formatting.Indented));
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                //request.Content.Headers.TryAddWithoutValidation("Content-Type", "application/json");
             }
             try
             {

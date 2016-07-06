@@ -15,6 +15,18 @@ namespace DriverLocatorFormsPortable
         {
             InitializeComponent();
             masterPage.ListView.ItemSelected += OnItemSelected;
+            
+        }
+
+
+        public MainPage(NotificationInfo notificationInfo):this()
+        {
+            RenderMianPageWithNotificationInfo(notificationInfo);
+        }
+
+        void RenderMianPageWithNotificationInfo(NotificationInfo notificationInfo)
+        {
+            Detail = new NavigationPage(new MapView(notificationInfo));
         }
 
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)

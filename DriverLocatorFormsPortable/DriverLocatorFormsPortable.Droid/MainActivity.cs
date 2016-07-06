@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using System.Net;
 
 namespace DriverLocatorFormsPortable.Droid
 {
@@ -13,19 +14,36 @@ namespace DriverLocatorFormsPortable.Droid
     [IntentFilter(new[] { "com.virtusa.driverlocatorforms.NOTIFICATION" }, Categories = new[] { "android.intent.category.DEFAULT" })]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
-        public const string KEY_MESSAGE_EXTRA = "message";
+        /*
+            "request_id":"1122",
+            "location_name": "Colombo",
+            "longitude":"34.54",
+            "latitude":"55.67"
+         */
+       
+        public const string KEY_REQUEST_ID_EXTRA = "request_id";
+        public const string KEY_LOCATION_NAME_EXTRA = "location_name";
+        public const string KEY_LONGITUDE_EXTRA = "longitude";
+        public const string KEY_LATITUDE_EXTRA = "latitude";
+
         protected override void OnCreate(Bundle bundle)
         {
-            
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             Xamarin.FormsMaps.Init(this, bundle);
 
-            if (Intent.HasExtra(KEY_MESSAGE_EXTRA))
+            if (Intent.HasExtra(KEY_REQUEST_ID_EXTRA))
             {
-                LoadApplication(new App(Intent.Extras.Get(KEY_MESSAGE_EXTRA).ToString()));
+                NotificationInfo notificationInfo = new NotificationInfo();
+                notificationInfo.RequestId = Intent.GetStringExtra(KEY_REQUEST_ID_EXTRA);
+                notificationInfo.LocationName = Intent.GetStringExtra(KEY_LOCATION_NAME_EXTRA);
+                notificationInfo.Longitude = Intent.GetStringExtra(KEY_LONGITUDE_EXTRA);
+                notificationInfo.Latitude = Intent.GetStringExtra(KEY_LATITUDE_EXTRA);
+                LoadApplication(new App(notificationInfo));
             }
             else
             {

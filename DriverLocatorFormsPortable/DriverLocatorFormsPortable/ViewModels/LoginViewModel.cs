@@ -1,6 +1,7 @@
 ﻿using Authentication;
 using Authentication.Models;
 using DriverLocatorFormsPortable.Common;
+using DriverLocatorFormsPortable.SharedInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,16 @@ namespace DriverLocatorFormsPortable.ViewModels
         string errorMessage;
 
         ILoginPageProcessor loginProcessor;
+        IUrbanAirshipNotificationService urbanAirshipNotificationService;
 
         public ICommand LoginCommand { protected set; get; }
 
         public ICommand SignUpCommand { protected set; get; }
 
-        public LoginViewModel(ILoginPageProcessor loginProcessor)
+        public LoginViewModel(ILoginPageProcessor loginProcessor, IUrbanAirshipNotificationService urbanAirshipNotificationService)
         {
             this.loginProcessor = loginProcessor;
+            this.urbanAirshipNotificationService = urbanAirshipNotificationService;
             Session.AuthenticationService = new AuthenticationService();
             this.LoginCommand = new RelayCommand(Login);
             this.SignUpCommand = new RelayCommand(SignUp);
@@ -55,6 +58,8 @@ namespace DriverLocatorFormsPortable.ViewModels
                 DriverLocator.DriverLocatorService driverLocatorService = new DriverLocator.DriverLocatorService(Session.AuthenticationService);
                 var userCorrdinateResult = driverLocatorService.GetSelectedUserCoordinate();
                 Session.CurrentUserName = this.UserName;
+                urbanAirshipNotificationService.InitializeNamedUser(this.UserName);
+                
                 if (userCorrdinateResult.IsSuccess)
                 {
                     App.CurrentLoggedUser = userCorrdinateResult.UserCoordinate;

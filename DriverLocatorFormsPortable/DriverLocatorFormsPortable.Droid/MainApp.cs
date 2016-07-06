@@ -23,16 +23,12 @@ namespace DriverLocatorFormsPortable.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-
-            // Call takeOff
-            UAirship.TakeOff(this, (UAirship airship) => {
-                //airship.PushManager.NamedUser.Id = "user1";
-                airship.PushManager.NamedUser.Id = "user1";
-                airship.PushManager.UpdateRegistration();
+            UAirship.TakeOff(this, (UAirship airship) =>
+            {                
                 UAirship.Shared().PushManager.UserNotificationsEnabled = true;
             });
-
-            
         }
+        
+      
     }
 }

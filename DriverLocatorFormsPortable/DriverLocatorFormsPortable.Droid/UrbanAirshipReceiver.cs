@@ -14,6 +14,9 @@ using UrbanAirship;
 using Android.Support.V4.Content;
 using Android.Util;
 using DriverLocatorFormsPortable.SharedInterfaces;
+using UrbanAirshipClient;
+using Android.Preferences;
+using UrbanAirship.RichPush;
 
 namespace DriverLocatorFormsPortable.Droid
 {
@@ -24,6 +27,7 @@ namespace DriverLocatorFormsPortable.Droid
     {
 
         public const string ACTION_CHANNEL_UPDATED = "channel_updated";
+        public const string KEY_ACCEPT_BUTTON = "accept";
 
         private const string TAG = "UrbanAirshipReceiver";
 
@@ -33,6 +37,11 @@ namespace DriverLocatorFormsPortable.Droid
         {
             Log.Info(TAG, "Channel registration updated. Channel Id:" + channelId);
 
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(context);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("urban_airship_client_id", channelId);
+            // editor.Commit();    // applies changes synchronously on older APIs
+            editor.Apply();          
             Intent intent = new Intent(ACTION_CHANNEL_UPDATED);
             LocalBroadcastManager.GetInstance(context).SendBroadcast(intent);
 
@@ -47,15 +56,11 @@ namespace DriverLocatorFormsPortable.Droid
 
         protected override void OnPushReceived(Context context, PushMessage message, bool notificationPosted)
         {
-            
+           
             Log.Info(TAG, "Received push message. Alert: " + message.Alert + ". Notification posted: " + notificationPosted);
+            //RichPushMessage message = UAirship.Shared().PushManager.
             //OnPushMessageReceived(this, new OnPushMessageReceivedEventArgs() { Message = message.Alert });
-            Intent intent = new Intent(KEY_NOTIFICATION_INTENT);           
-            //intent.PutExtra("message", message.Alert);
-            intent.SetFlags(ActivityFlags.NewTask);
-            intent.SetFlags(ActivityFlags.ClearTop);
-            intent.PutExtra(MainActivity.KEY_MESSAGE_EXTRA,message.Alert);
-            context.StartActivity(intent);
+            
         }
 
         protected override void OnNotificationPosted(Context context, AirshipReceiver.NotificationInfo notificationInfo)
@@ -76,11 +81,22 @@ namespace DriverLocatorFormsPortable.Droid
 
         protected override bool OnNotificationOpened(Context context, AirshipReceiver.NotificationInfo notificationInfo, AirshipReceiver.ActionButtonInfo actionButtonInfo)
         {
-            Log.Info(TAG, "User clicked notification button. Button ID: " + actionButtonInfo.ButtonId + " Alert: " + notificationInfo.Message.Alert);
+            var messageBundle = notificationInfo.Message.PushBundle;
 
-            // Return false here to allow Urban Airship to auto launch the launcher
-            // activity for foreground notification action buttons
-            //OnPushNotificationOpened(this, new OnPushNotificationOpenedEventArgs() { Message = notificationInfo.Message.Alert, NotificationId = notificationInfo.NotificationId, Button = ButtonType.Confirm });
+            if (actionButtonInfo.ButtonId == KEY_ACCEPT_BUTTON)
+            {
+                Intent intent = new Intent(KEY_NOTIFICATION_INTENT);
+                intent.SetFlags(ActivityFlags.NewTask);
+                intent.PutExtra(MainActivity.KEY_REQUEST_ID_EXTRA, messageBundle.GetString(MainActivity.KEY_REQUEST_ID_EXTRA));
+                intent.PutExtra(MainActivity.KEY_LOCATION_NAME_EXTRA, messageBundle.GetString(MainActivity.KEY_LOCATION_NAME_EXTRA));
+                intent.PutExtra(MainActivity.KEY_LONGITUDE_EXTRA, messageBundle.GetString(MainActivity.KEY_LONGITUDE_EXTRA));
+                intent.PutExtra(MainActivity.KEY_LATITUDE_EXTRA, messageBundle.GetString(MainActivity.KEY_LATITUDE_EXTRA));
+                context.StartActivity(intent);
+            }
+            else
+            {
+
+            }
             return false;
         }
 

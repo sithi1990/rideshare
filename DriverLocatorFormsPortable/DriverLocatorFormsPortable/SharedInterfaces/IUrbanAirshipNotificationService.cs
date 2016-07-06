@@ -8,12 +8,14 @@ namespace DriverLocatorFormsPortable.SharedInterfaces
 {
     public interface IUrbanAirshipNotificationService
     {
-        event EventHandler OnRegistrationSucceeded;
-        event EventHandler OnRegistrationFailed;
-        event EventHandler OnPushMessageReceived;
-        event EventHandler OnPushNotificationPosted;
-        event EventHandler OnPushNotificationOpened;
-        event EventHandler OnPushNotificationDismissed;
+        //event EventHandler OnRegistrationSucceeded;
+        //event EventHandler OnRegistrationFailed;
+        //event EventHandler OnPushMessageReceived;
+        //event EventHandler OnPushNotificationPosted;
+        //event EventHandler OnPushNotificationOpened;
+        //event EventHandler OnPushNotificationDismissed;
+
+        void InitializeNamedUser(string userName);
     }
 
     public enum ButtonType

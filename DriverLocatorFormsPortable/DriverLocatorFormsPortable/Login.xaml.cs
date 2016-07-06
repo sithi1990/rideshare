@@ -1,6 +1,7 @@
 ﻿using Authentication;
 using Authentication.Models;
 using DriverLocatorFormsPortable.Common;
+using DriverLocatorFormsPortable.SharedInterfaces;
 using DriverLocatorFormsPortable.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,17 +14,19 @@ namespace DriverLocatorFormsPortable
 {
     public partial class Login : ContentPage,ILoginPageProcessor
     {
+        IUrbanAirshipNotificationService urbanAirshipNotificationService = DependencyService.Get<IUrbanAirshipNotificationService>();
         public Login()
         {
             InitializeComponent();
-            Content.BindingContext = new LoginViewModel(this);
+            Content.BindingContext = new LoginViewModel(this, urbanAirshipNotificationService);
             //Session.AuthenticationService = new AuthenticationService();
         }
 
         public Login(string data)
         {
             InitializeComponent();
-            var loginVm= new LoginViewModel(this);
+            
+            var loginVm= new LoginViewModel(this, urbanAirshipNotificationService);
             loginVm.ErrorMessage = data;
             Content.BindingContext = loginVm;
             //Session.AuthenticationService = new AuthenticationService();
