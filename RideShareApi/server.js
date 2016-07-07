@@ -173,7 +173,7 @@ apiRoutes.post('/ridehistory', function (req, res) {
         userName: req.userInfo.userName,
         driverUserName: req.body.driverUserName,
         requestedTime: new Date(),
-        requestStatus: req.body.requestStatus,
+        requestStatus: 1,
         sourseName: req.body.sourseName,
         destinationName: req.body.destinationName,
         sourceLongitude: req.body.sourceLongitude,
