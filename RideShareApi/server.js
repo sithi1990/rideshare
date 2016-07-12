@@ -185,8 +185,18 @@ apiRoutes.post('/ridehistory', function (req, res) {
     newRideHistory.save(function (err,saved) {
         if (err) res.json({ success: false, message: err });
 		
-		urbanAirshipClient.sendNotification(saved.driverUserName, saved.id, saved.sourseName, saved.sourceLongitude, saved.sourceLatitude, function (notificationSentStatus) { 
-			console.log(notificationSentStatus.message);	
+		var notificationData = {};
+		notificationData.driverUserName = saved.driverUserName;
+		notificationData.id = saved.id;
+		notificationData.sourseName = saved.sourseName;
+		notificationData.sourceLongitude = saved.sourceLongitude;
+		notificationData.sourceLatitude = saved.sourceLatitude;
+		notificationData.destinationName = saved.destinationName;
+		notificationData.destinationLongitude = saved.destinationLongitude;
+		notificationData.destinationLatitude = saved.destinationLatitude;
+
+		urbanAirshipClient.sendNotification(notificationData, function (notificationSentStatus) {
+			console.log(notificationSentStatus.message);
 		});
 
         console.log('Added new history item successfully');
