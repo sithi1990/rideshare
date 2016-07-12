@@ -3,7 +3,7 @@ var httpClient = new HttpClient();
 
 module.exports = function () {
    
-    function sendNotification(driverUserName,requestId,sourceLocation,longitude,latitude,callback) {
+    function sendNotification(notificationData,callback) {
        
 		var args = {
 			data: {
