@@ -167,6 +167,29 @@ apiRoutes.get('/usercoordinates', function(req, res) {
 
 });   
 
+apiRoutes.put('/users/type', function (req, res) {
+	
+	UserCoordinate.findOne({ userName : req.userInfo.userName }, function (err, user) {
+		
+		if (err) res.json({ success: false, message: err });
+		
+		if (!user) {
+			res.json({ success: false, message: "User Not Found" });
+		}
+		else {
+			user.userType = req.body.userType;
+			
+			user.save(function (err) {
+				if (err) res.json({ success: false, message: err });
+				
+				console.log('Updated User successfully');
+				res.json({ success: true });
+			});
+
+		}
+
+	});
+	
 apiRoutes.post('/ridehistory', function (req, res) {
     
     var newRideHistory = new RideHistory({
